@@ -10,7 +10,7 @@ Este projeto é um Sistema Web unificado desenvolvido em **Spring Boot (Java)** 
 
 ---
 
-## 📸 Demonstração do Sistema (Evidências)
+## 📸 Demonstração do Sistema
 
 ### 👥 Gerenciamento de Professores
 Lista os docentes cadastrados e permite a inserção e edição de perfis acadêmicos.
