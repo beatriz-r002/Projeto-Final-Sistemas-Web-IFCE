@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Professores por Disciplina</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Professores aptos por Disciplina</h2>
+    <a href="/consultas" class="btn btn-secondary mb-3">Voltar</a>
+    <form method="get" action="/consultas/por-disciplina" class="row g-2 mb-4">
+        <div class="col-auto">
+            <select name="codDisciplina" class="form-select" required>
+                <option value="">Selecione uma disciplina...</option>
+                <option th:each="d : ${disciplinas}"
+                        th:value="${d.codDisciplina}"
+                        th:text="${d.nome}"
+                        th:selected="${disciplinaSelecionada != null and disciplinaSelecionada.codDisciplina == d.codDisciplina}"></option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
+    <div th:if="${registros != null}">
+        <h5>Professores aptos para: <strong th:text="${disciplinaSelecionada?.nome}"></strong></h5>
+        <div th:if="${#lists.isEmpty(registros)}" class="alert alert-warning">Nenhum professor apto encontrado.</div>
+        <table class="table table-bordered" th:if="${!#lists.isEmpty(registros)}">
+            <thead class="table-dark">
+                <tr><th>Matrícula</th><th>Nome</th><th>Email</th><th>Telefone</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${registros}">
+                    <td th:text="${r.professor.matricula}"></td>
+                    <td th:text="${r.professor.nome}"></td>
+                    <td th:text="${r.professor.email}"></td>
+                    <td th:text="${r.professor.telefone}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

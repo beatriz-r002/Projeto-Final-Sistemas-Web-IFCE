@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Turma</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4" style="max-width: 500px;">
+    <h2 th:text="${turma.codTurma == null} ? 'Nova Turma' : 'Editar Turma'"></h2>
+    <form action="/turmas/salvar" method="post">
+        <input type="hidden" name="codTurma" th:value="${turma.codTurma}">
+        <div class="mb-3">
+            <label class="form-label">Professor</label>
+            <select name="matriculaProfessor" class="form-select" required>
+                <option value="">Selecione...</option>
+                <option th:each="p : ${professores}"
+                        th:value="${p.matricula}"
+                        th:text="${p.nome}"
+                        th:selected="${turma.professor != null and turma.professor.matricula == p.matricula}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Disciplina</label>
+            <select name="codDisciplina" class="form-select" required>
+                <option value="">Selecione...</option>
+                <option th:each="d : ${disciplinas}"
+                        th:value="${d.codDisciplina}"
+                        th:text="${d.nome}"
+                        th:selected="${turma.disciplina != null and turma.disciplina.codDisciplina == d.codDisciplina}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Semestre (ex: 20251)</label>
+            <input type="number" name="semestre" class="form-control" th:value="${turma.semestre}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Número de Alunos</label>
+            <input type="number" name="numAlunos" class="form-control" th:value="${turma.numAlunos}" required min="1">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Turno</label>
+            <select name="turno" class="form-select" required>
+                <option value="">Selecione...</option>
+                <option value="manhã" th:selected="${turma.turno == 'manhã'}">Manhã</option>
+                <option value="tarde" th:selected="${turma.turno == 'tarde'}">Tarde</option>
+                <option value="noite" th:selected="${turma.turno == 'noite'}">Noite</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="/turmas" class="btn btn-secondary ms-2">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

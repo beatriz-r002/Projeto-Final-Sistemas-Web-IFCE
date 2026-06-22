@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Disciplinas por Professor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Disciplinas Ministradas por Professor</h2>
+    <a href="/consultas" class="btn btn-secondary mb-3">Voltar</a>
+    <form method="get" action="/consultas/por-professor" class="row g-2 mb-4">
+        <div class="col-auto">
+            <select name="matricula" class="form-select" required>
+                <option value="">Selecione um professor...</option>
+                <option th:each="p : ${professores}"
+                        th:value="${p.matricula}"
+                        th:text="${p.nome}"
+                        th:selected="${professorSelecionado != null and professorSelecionado.matricula == p.matricula}"></option>
+            </select>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </form>
+
+    <div th:if="${relatorio != null}">
+        <h5>Relatório de: <strong th:text="${professorSelecionado?.nome}"></strong></h5>
+        <div th:if="${#lists.isEmpty(relatorio)}" class="alert alert-warning">Professor ainda não ministrou nenhuma turma.</div>
+        <table class="table table-bordered" th:if="${!#lists.isEmpty(relatorio)}">
+            <thead class="table-dark">
+                <tr><th>Disciplina</th><th>Total de Turmas</th><th>Carga Horária Total</th><th>Total de Alunos</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${relatorio}">
+                    <td th:text="${r.disciplina.nome}"></td>
+                    <td th:text="${r.totalTurmas}"></td>
+                    <td th:text="${r.totalCargaHoraria} + 'h'"></td>
+                    <td th:text="${r.totalAlunos}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

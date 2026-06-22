@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Professores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Professores</h2>
+    <a href="/professores/novo" class="btn btn-success mb-3">+ Novo Professor</a>
+    <a href="/" class="btn btn-secondary mb-3 ms-2">Voltar</a>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Matrícula</th><th>Nome</th><th>Email</th><th>Telefone</th><th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${professores}">
+                <td th:text="${p.matricula}"></td>
+                <td th:text="${p.nome}"></td>
+                <td th:text="${p.email}"></td>
+                <td th:text="${p.telefone}"></td>
+                <td>
+                    <a th:href="@{/professores/editar/{m}(m=${p.matricula})}" class="btn btn-sm btn-warning">Editar</a>
+                    <a th:href="@{/professores/excluir/{m}(m=${p.matricula})}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Excluir professor?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
