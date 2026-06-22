@@ -1,4 +1,4 @@
-# 🏫 Sistema Web de Gestão de Competências Acadêmicas 
+# Sistema Web de Gestão de Competências Acadêmicas 
 
 Este projeto é um Sistema Web unificado desenvolvido em **Spring Boot (Java)** para a gestão de competências acadêmicas, relacionando professores, disciplinas e o histórico de turmas ministradas no departamento.
 
